@@ -8,13 +8,13 @@ From: arnstrm2/augustus
    EMAIL arnstrm@iastate.edu
 
 %post
-   apt-get update
-   apt-get install exonerate
-   apt-get install ncbi-blast+
-   apt-get install cdbfasta
-   apt-get install diamond-aligner
-   apt-get install python3-pip
-   apt-get install openjdk-8-jdk
+   apt-get -y update
+   apt-get -y install exonerate
+   apt-get -y install ncbi-blast+
+   apt-get -y install cdbfasta
+   apt-get -y install diamond-aligner
+   apt-get -y install python3-pip
+   apt-get -y install openjdk-8-jdk
    cpan CPAN
    cpan File::Spec::Functions \
         YAML \
