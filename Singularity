@@ -61,5 +61,6 @@ From: arnstrm2/augustus
 %environment
   export PATH=$PATH:/root/gmes_linux_64:/root/augustus/bin:/root/augustus/scripts:/root/GUSHR:/root/BRAKER/scripts
   export PERL5LIB=$PERL5LIB:/root/gmes_linux_64/lib
-
-
+  export AUGUSTUS_CONFIG_PATH=/root/augustus/config
+  export AUGUSTUS_BIN_PATH=/root/augustus/bin
+  export AUGUSTUS_SCRIPTS_PATH=/root/augustus/scripts
