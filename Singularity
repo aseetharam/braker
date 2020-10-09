@@ -15,6 +15,7 @@ From: arnstrm2/augustus
    apt-get -y install diamond-aligner
    apt-get -y install python3-pip
    apt-get -y install openjdk-8-jdk
+   apt-get -y install cmake
    cpan CPAN
    cpan File::Spec::Functions \
         YAML \
@@ -31,7 +32,7 @@ From: arnstrm2/augustus
         File::HomeDir \
         List::MoreUtils
    pip3 install biopython
-   # install GeneMark-ES with key
+   # install GeneMark-ES
    cd /root
    wget http://topaz.gatech.edu/GeneMark/tmp/GMtool_fS3HC/gmes_linux_64.tar.gz
    wget http://topaz.gatech.edu/GeneMark/tmp/GMtool_fS3HC/gm_key_64.gz
@@ -46,8 +47,12 @@ From: arnstrm2/augustus
    wget https://github.com/pezmaster31/bamtools/archive/v2.5.1.tar.gz
    tar xf v2.5.1.tar.gz
    rm -rf v2.5.1.tar.gz
-   cd bamtools-2.5.1/
-   mkdir build && cd build && cmake .. && make && make install 
+   cd bamtools-2.5.1 && \
+      mkdir build && \
+      cd build && \
+      cmake .. && \
+      make && \
+      make install 
    cd /root
    git clone https://github.com/Gaius-Augustus/GUSHR.git
    git clone https://github.com/Gaius-Augustus/BRAKER.git
