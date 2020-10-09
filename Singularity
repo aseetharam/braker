@@ -31,7 +31,7 @@ From: arnstrm2/augustus
         File::HomeDir \
         List::MoreUtils
    pip3 install biopython
-   # install GeneMark-ES
+   # install GeneMark-ES with key
    cd /root
    wget http://topaz.gatech.edu/GeneMark/tmp/GMtool_fS3HC/gmes_linux_64.tar.gz
    wget http://topaz.gatech.edu/GeneMark/tmp/GMtool_fS3HC/gm_key_64.gz
