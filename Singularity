@@ -54,6 +54,7 @@ From: arnstrm2/augustus
       make && \
       make install 
    cd /root
+
    git clone https://github.com/Gaius-Augustus/GUSHR.git
    git clone https://github.com/Gaius-Augustus/BRAKER.git
    echo "export PATH=$PATH:/root/gmes_linux_64" >>$SINGULARITY_ENVIRONMENT
