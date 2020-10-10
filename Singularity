@@ -57,11 +57,11 @@ From: arnstrm2/augustus
    cd /opt
    git clone https://github.com/Gaius-Augustus/GUSHR.git
    git clone https://github.com/Gaius-Augustus/BRAKER.git
-
-   echo "export PATH=$PATH:/opt/gmes_linux_64" >>$SINGULARITY_ENVIRONMENT
-   echo "export PATH=$PATH:/opt/GUSHR" >>$SINGULARITY_ENVIRONMENT
-   echo "export PATH=$PATH:/opt/BRAKER/scripts" >>$SINGULARITY_ENVIRONMENT
-   echo "export PERL5LIB=$PERL5LIB:/opt/gmes_linux_64/lib" >>$SINGULARITY_ENVIRONMENT
-   echo "export AUGUSTUS_CONFIG_PATH=/opt/augustus/config" >>$SINGULARITY_ENVIRONMENT
-   echo "export AUGUSTUS_BIN_PATH=/opt/augustus/bin" >>$SINGULARITY_ENVIRONMENT
-   echo "export AUGUSTUS_SCRIPTS_PATH=/opt/augustus/scripts" >>$SINGULARITY_ENVIRONMENT
+%environment
+   export PATH=$PATH:/opt/gmes_linux_64
+   export PATH=$PATH:/opt/GUSHR
+   export PATH=$PATH:/opt/BRAKER/scripts
+   export PERL5LIB=$PERL5LIB:/opt/gmes_linux_64/lib
+   export AUGUSTUS_CONFIG_PATH=/opt/augustus/config
+   export AUGUSTUS_BIN_PATH=/opt/augustus/bin
+   export AUGUSTUS_SCRIPTS_PATH=/opt/augustus/scripts
