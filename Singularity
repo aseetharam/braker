@@ -16,6 +16,8 @@ From: arnstrm2/augustus
    apt-get -y install python3-pip
    apt-get -y install openjdk-8-jdk
    apt-get -y install cmake
+   apt-get -y install genomethreader
+   ln -s /usr/bin/diamond /usr/bin/diamond-aligner
    cpan CPAN
    cpan File::Spec::Functions \
         YAML \
