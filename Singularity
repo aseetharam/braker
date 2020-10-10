@@ -1,4 +1,3 @@
-
 Bootstrap: docker
 From: arnstrm2/augustus
 
@@ -16,7 +15,6 @@ From: arnstrm2/augustus
    apt-get -y install python3-pip
    apt-get -y install openjdk-8-jdk
    apt-get -y install cmake
-   apt-get -y install genomethreader
    ln -s /usr/bin/diamond /usr/bin/diamond-aligner
    cpan CPAN
    cpan File::Spec::Functions \
@@ -37,8 +35,8 @@ From: arnstrm2/augustus
    # install GeneMark-ES
    cd /opt
    mv /root/augustus /opt/
-   wget http://topaz.gatech.edu/GeneMark/tmp/GMtool_fS3HC/gmes_linux_64.tar.gz
-   wget http://topaz.gatech.edu/GeneMark/tmp/GMtool_fS3HC/gm_key_64.gz
+   wget http://topaz.gatech.edu/GeneMark/tmp/GMtool_jDxr5/gmes_linux_64.tar.gz
+   wget http://topaz.gatech.edu/GeneMark/tmp/GMtool_jDxr5/gm_key_64.gz
    gunzip gm_key_64.gz
    mv gm_key_64 ~/.gm_key
    tar xf gmes_linux_64.tar.gz
@@ -59,10 +57,18 @@ From: arnstrm2/augustus
    cd /opt
    git clone https://github.com/Gaius-Augustus/GUSHR.git
    git clone https://github.com/Gaius-Augustus/BRAKER.git
+   
+   wget https://genomethreader.org/distributions/gth-1.7.3-Linux_x86_64-64bit.tar.gz
+   tar xf gth-1.7.3-Linux_x86_64-64bit.tar.gz
+   rm gth-1.7.3-Linux_x86_64-64bit.tar.gz
+   
+
+
 %environment
    export PATH=$PATH:/opt/gmes_linux_64
    export PATH=$PATH:/opt/GUSHR
    export PATH=$PATH:/opt/BRAKER/scripts
+   export PATH=$PATH:/opt/gth-1.7.3-Linux_x86_64-64bit/bin
    export PERL5LIB=$PERL5LIB:/opt/gmes_linux_64/lib
    export AUGUSTUS_CONFIG_PATH=/opt/augustus/config
    export AUGUSTUS_BIN_PATH=/opt/augustus/bin
