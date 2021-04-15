@@ -1,4 +1,5 @@
-# BRAKER Container
+# BRAKER Container [![https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg](https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg)](https://singularity-hub.org/collections/4738)
+
 
 [BRAKER2](https://github.com/Gaius-Augustus/BRAKER) is a gene prediction program that uses GeneMark-EXand AUGUSTUS from RNA-Seq and/or protein homology information, and that integrates the extrinsic evidence from RNA-Seq and protein homology information into the prediction.
 
