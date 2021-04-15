@@ -1,75 +1,29 @@
 Bootstrap: docker
-From: arnstrm2/augustus
-
-
-%labels
-   MAINTAINER Arun Seetharam
-   EMAIL arnstrm@iastate.edu
-
-%post
-   apt-get -y update
-   apt-get -y install exonerate
-   apt-get -y install ncbi-blast+
-   apt-get -y install cdbfasta
-   apt-get -y install diamond-aligner
-   apt-get -y install python3-pip
-   apt-get -y install openjdk-8-jdk
-   apt-get -y install cmake
-   ln -s /usr/bin/diamond /usr/bin/diamond-aligner
-   cpan CPAN
-   cpan File::Spec::Functions \
-        YAML \
-        Hash::Merge \
-        List::Util \
-        Thread::Queue \
-        Logger::Simple \
-        Module::Load::Conditional \
-        Parallel::ForkManager \
-        POSIX Scalar::Util::Numeric \
-        YAML Math::Utils \
-        MCE::Mutex \
-        threads \
-        File::HomeDir \
-        List::MoreUtils
-   pip3 install biopython
-   # install GeneMark-ES
-   cd /opt
-   mv /root/augustus /opt/
-   wget http://topaz.gatech.edu/GeneMark/tmp/GMtool_jDxr5/gmes_linux_64.tar.gz
-   wget http://topaz.gatech.edu/GeneMark/tmp/GMtool_jDxr5/gm_key_64.gz
-   gunzip gm_key_64.gz
-   mv gm_key_64 ~/.gm_key
-   tar xf gmes_linux_64.tar.gz
-   rm -rf gmes_linux_64.tar.gz
-   cd /opt/gmes_linux_64
-   ./change_path_in_perl_scripts.pl "/usr/bin/env perl"
-   # install bamtools
-   cd /opt
-   wget https://github.com/pezmaster31/bamtools/archive/v2.5.1.tar.gz
-   tar xf v2.5.1.tar.gz
-   rm -rf v2.5.1.tar.gz
-   cd bamtools-2.5.1 && \
-      mkdir build && \
-      cd build && \
-      cmake .. && \
-      make && \
-      make install 
-   cd /opt
-   git clone https://github.com/Gaius-Augustus/GUSHR.git
-   git clone https://github.com/Gaius-Augustus/BRAKER.git
-   
-   wget https://genomethreader.org/distributions/gth-1.7.3-Linux_x86_64-64bit.tar.gz
-   tar xf gth-1.7.3-Linux_x86_64-64bit.tar.gz
-   rm gth-1.7.3-Linux_x86_64-64bit.tar.gz
-   
-
+From: quay.io/biocontainers/braker2:2.1.6--hdfd78af_2
 
 %environment
-   export PATH=$PATH:/opt/gmes_linux_64
-   export PATH=$PATH:/opt/GUSHR
-   export PATH=$PATH:/opt/BRAKER/scripts
-   export PATH=$PATH:/opt/gth-1.7.3-Linux_x86_64-64bit/bin
-   export PERL5LIB=$PERL5LIB:/opt/gmes_linux_64/lib
-   export AUGUSTUS_CONFIG_PATH=/opt/augustus/config
-   export AUGUSTUS_BIN_PATH=/opt/augustus/bin
-   export AUGUSTUS_SCRIPTS_PATH=/opt/augustus/scripts
+    export PATH=/opt/gmes_linux_64/ProtHint/bin/:${PATH}
+    export AUGUSTUS_SCRIPTS_PATH=/usr/local/bin
+    export AUGUSTUS_BIN_PATH=/usr/local/bin
+    export GENEMARK_PATH=/opt/gmes_linux_64
+    export ALIGNMENT_TOOL_PATH=/usr/local/bin/
+
+# Register for GeneMark-ES/ET/EP at http://exon.gatech.edu/GeneMark/license_download.cgi (tested with ver 4.65)
+# NOTE: the bundled license key expires after 200 days
+
+%post
+    set -o pipefail -o errexit
+    readonly GENEMARK_DOWNLOAD_URL=http://topaz.gatech.edu/GeneMark/tmp/GMtool_v3gNp/gmes_linux_64.tar.gz
+    wget -O - ${GENEMARK_DOWNLOAD_URL} | gzip -dc | tar -C /opt -xf -
+    mkdir /opt/gm_key
+    mv /opt/gmes_linux_64/gm_key /opt/gm_key/.gm_key
+    cd /opt/gmes_linux_64
+    perl change_path_in_perl_scripts.pl "/usr/bin/env perl"
+
+    # https://github.com/gatech-genemark/ProtHint/issues/27
+    sed -i.bak 's/grep -P/grep/' /opt/gmes_linux_64/ProtHint/bin/prothint.py
+    sed -i.bak -e 's/readlink -e/realpath/' -e 's/stat --printf/stat -c/' /opt/gmes_linux_64/ProtHint/bin/spalnBatch.sh
+   
+
+%runscript
+    exec braker.pl "$@"
