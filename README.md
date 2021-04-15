@@ -62,7 +62,7 @@ env time -v singularity run \
     --home /opt/gm_key \
     --cleanenv \
     --env AUGUSTUS_CONFIG_PATH=${PWD}/augustus_config \
-    ${SINGULARITY_IMAGE} \
+    ${SINGULARITY_IMAGE} braker.pl \
         --cores ${SLURM_JOB_CPUS_PER_NODE} \
         --species=${SPECIES} \
         --genome=${GENOME} \
